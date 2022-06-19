@@ -1,4 +1,5 @@
 # Steps to run the tests:
 
-# [1] cd tellus
-# [2] ruby ./test_giphy.rb
+# [1] open terminal
+# [2] cd tellus
+# [3] ruby ./test_giphy.rb
