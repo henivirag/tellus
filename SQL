@@ -1,0 +1,54 @@
+-- create new table 'products'
+CREATE TABLE products (
+    id int,
+    product_name varchar(255),
+    product_type varchar(255),
+    product_model varchar(255),
+    price int
+);
+
+-- populate 'products' table
+INSERT INTO `products` (`id`, `product_name`, `product_type`, `product_model`, `price`) VALUES ('1', 'apple', 'laptop', 'a', '2000');
+INSERT INTO `products` (`id`, `product_name`, `product_type`, `product_model`, `price`) VALUES ('2', 'samsung', 'desktop', 'b', '2200');
+INSERT INTO `products` (`id`, `product_name`, `product_type`, `product_model`, `price`) VALUES ('3', 'sony', 'laptop', 'c', '1900');
+INSERT INTO `products` (`id`, `product_name`, `product_type`, `product_model`, `price`) VALUES ('4', 'apple', 'laptop', 'd', '1900');
+INSERT INTO `products` (`id`, `product_name`, `product_type`, `product_model`, `price`) VALUES ('5', 'sony', 'laptop', 'e', '2500');
+
+-- products table
+--
+-- id      product_name      product_type      product_model      price
+--
+-- 1       "apple"           "laptop"          "a"                2000
+-- 2       "samsung"         "desktop"         "b"                2200
+-- 3       "sony"            "laptop"          "c"                1900
+-- 4       "apple"           "laptop"          "d"                1900
+-- 5       "sony"            "laptop"          "e"                2500
+
+-- NOTE:
+-- apple_avg = 1950 ---> below 2000 <--- should be the result
+-- samsung_avg = 2200 ---> above 2000
+-- sony_avg = 2200 ---> above 2000
+
+
+-- create new table 'laptop'
+CREATE TABLE laptop (
+    id int,
+    product_name varchar(255),
+    product_type varchar(255),
+    product_model varchar(255),
+    price int
+);
+
+-- populate table 'laptop' with laptop-specific rows from table 'products'
+INSERT INTO laptop (
+    id,
+    product_name,
+    product_type,
+    product_model,
+    price)
+SELECT * FROM products
+WHERE product_type='laptop';
+
+-- select all product names for laptops with average price < $2000
+SELECT DISTINCT product_name, AVG(price) FROM laptop GROUP BY product_name HAVING AVG(price) < 2000;
+-- returns product_name 'apple'
